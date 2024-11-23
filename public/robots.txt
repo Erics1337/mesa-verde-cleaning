@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mesaverdecleaning.com
+
+# Sitemaps
+Sitemap: https://mesaverdecleaning.com/sitemap.xml

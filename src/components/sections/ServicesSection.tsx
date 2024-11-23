@@ -64,7 +64,7 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <div
               key={service.title}
-              className={`relative bg-white rounded-2xl shadow-lg p-8 opacity-0 animate-fade-in`}
+              className={`relative bg-white rounded-2xl shadow-lg p-8 animate-fade-in`}
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {service.popular && (

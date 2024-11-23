@@ -11,6 +11,11 @@ const nextConfig = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
     };
+    // Add watchOptions to increase timeout
+    config.watchOptions = {
+      aggregateTimeout: 300,
+      poll: 1000,
+    };
     return config;
   },
 }
