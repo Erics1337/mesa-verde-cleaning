@@ -1,0 +1,84 @@
+sendgrid.env
+# Ignore next.js build output
+.next
+.vercel
+.env.local
+.env.example
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Ignore logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Ignore runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+tmp
+*.db
+
+# Ignore tests
+tests
+
+# Ignore cache
+.cache
+.cache-loader
+
+# Ignore build artifacts
+build
+dist
+public/build
+
+# Ignore node_modules
+node_modules
+
+# Ignore coverage
+coverage
+
+# Ignore editor settings
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.userprefs
+
+# Ignore IDEs
+.idea
+.vscode
+*.code-workspace
+*.sw*
+
+# Ignore misc
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+nuget.config
+
+# Ignore temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.swn
+*.dll
+*.pdb
+*.userprefs
+*.pdb.userprefs
