@@ -99,7 +99,7 @@ function ContactForm() {
     }
   }
 
-  const { elementRef, isVisible } = useIntersectionObserver({
+  const { elementRef, isVisible } = useIntersectionObserver<HTMLFormElement>({
     threshold: 0.2,
     rootMargin: '-50px',
   })
@@ -318,7 +318,7 @@ function ContactForm() {
 
 export default function ContactSection() {
   'use client'
-  const { elementRef, isVisible } = useIntersectionObserver({
+  const { elementRef, isVisible } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.2,
     rootMargin: '-50px',
   })
