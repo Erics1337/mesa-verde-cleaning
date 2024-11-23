@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import { FiCheck, FiAward, FiShield, FiClock, FiHome } from 'react-icons/fi'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 const features = [
   {
@@ -20,9 +23,20 @@ const features = [
 ]
 
 export default function AboutSection() {
+  const { elementRef, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    rootMargin: '-50px',
+  })
+
   return (
-    <section id="about" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="about"
+      ref={elementRef}
+      className="py-12 sm:py-16 lg:py-20 bg-gray-50"
+    >
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
           {/* Image Section */}
           <div className="relative animate-fade-in">

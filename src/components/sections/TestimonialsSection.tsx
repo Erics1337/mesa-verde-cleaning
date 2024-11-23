@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FiStar, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import Image from 'next/image'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 const testimonials = [
   {
@@ -36,22 +37,46 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState<'left' | 'right'>('right')
+  const [isAnimating, setIsAnimating] = useState(false)
+  const { elementRef, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    rootMargin: '-50px',
+  })
 
   const nextTestimonial = () => {
+    if (isAnimating) return
+    setDirection('right')
+    setIsAnimating(true)
     setCurrentIndex((prevIndex) =>
       prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
     )
   }
 
   const prevTestimonial = () => {
+    if (isAnimating) return
+    setDirection('left')
+    setIsAnimating(true)
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
     )
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAnimating(false)
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [currentIndex])
+
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      ref={elementRef}
+      className="py-12 sm:py-16 lg:py-20 bg-gray-50"
+    >
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-opacity duration-1000 ${
+        isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'
+      }`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
             What Our Clients Say
@@ -62,16 +87,22 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="relative max-w-3xl mx-auto">
-          {/* Navigation Buttons */}
           <button
             onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 lg:-translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none"
+            disabled={isAnimating}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 lg:-translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
           >
             <FiChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
 
-          {/* Testimonial Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 animate-fade-in">
+          <div
+            key={currentIndex}
+            className={`bg-white rounded-2xl shadow-xl p-8 ${
+              direction === 'right'
+                ? 'animate-slide-in-right'
+                : 'animate-slide-in-left'
+            }`}
+          >
             <div className="flex items-center space-x-4 mb-6">
               <div className="relative w-16 h-16 rounded-full overflow-hidden">
                 <Image
@@ -94,19 +125,14 @@ export default function TestimonialsSection() {
               </div>
             </div>
 
-            <p className="text-gray-600 mb-4">
-              {testimonials[currentIndex].content}
-            </p>
-
-            <p className="text-sm text-gray-500">
-              Service: {testimonials[currentIndex].service}
-            </p>
+            <p className="text-gray-600 mb-4">{testimonials[currentIndex].content}</p>
+            <p className="text-sm text-gray-500">{testimonials[currentIndex].service}</p>
           </div>
 
-          {/* Next Button */}
           <button
             onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 lg:translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none"
+            disabled={isAnimating}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 lg:translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
           >
             <FiChevronRight className="w-6 h-6 text-gray-600" />
           </button>

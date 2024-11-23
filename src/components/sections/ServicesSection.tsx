@@ -1,4 +1,7 @@
+'use client'
+
 import { FiHome, FiBox, FiTool, FiCalendar, FiStar, FiCheckCircle } from 'react-icons/fi'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 const services = [
   {
@@ -46,9 +49,20 @@ const services = [
 ]
 
 export default function ServicesSection() {
+  const { elementRef, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    rootMargin: '-50px',
+  })
+
   return (
-    <section id="services" className="py-12 sm:py-16 lg:py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="services"
+      ref={elementRef}
+      className="py-12 sm:py-16 lg:py-20 bg-white"
+    >
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
             Our Cleaning Services
@@ -62,7 +76,9 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <div
               key={service.title}
-              className={`relative bg-white rounded-2xl shadow-lg p-8 animate-fade-in`}
+              className={`relative bg-white rounded-2xl shadow-lg p-8 animate-fade-in ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {service.popular && (

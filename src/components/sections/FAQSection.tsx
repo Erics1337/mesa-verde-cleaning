@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { FiPlus, FiMinus } from 'react-icons/fi'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 const faqs = [
   {
@@ -49,6 +50,10 @@ const faqs = [
 export default function FAQSection() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const { elementRef, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    rootMargin: '-50px',
+  })
 
   const categories = ['All', ...Array.from(new Set(faqs.map(faq => faq.category))).sort()]
   
@@ -66,8 +71,14 @@ export default function FAQSection() {
   }
 
   return (
-    <section id="faq" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="faq"
+      ref={elementRef}
+      className="py-12 sm:py-16 lg:py-20 bg-gray-50"
+    >
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
             Frequently Asked Questions
@@ -98,7 +109,10 @@ export default function FAQSection() {
             {filteredFaqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+                className={`transition-all duration-300 transform ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <button
                   onClick={() => toggleFaq(index)}

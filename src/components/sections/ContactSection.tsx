@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { siteConfig } from '@/utils/config'
 import { event, AnalyticsEventCategories, AnalyticsEventActions } from '@/utils/analytics'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
@@ -98,8 +99,19 @@ function ContactForm() {
     }
   }
 
+  const { elementRef, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    rootMargin: '-50px',
+  })
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      ref={elementRef}
+      className={`space-y-6 transition-all duration-1000 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       {/* Name */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -306,6 +318,11 @@ function ContactForm() {
 
 export default function ContactSection() {
   'use client'
+  const { elementRef, isVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    rootMargin: '-50px',
+  })
+
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={siteConfig.recaptcha.siteKey || ''}
@@ -315,12 +332,22 @@ export default function ContactSection() {
         appendTo: 'head',
       }}
     >
-      <section id="contact" className="py-20 bg-gray-50">
+      <section
+        id="contact"
+        ref={elementRef}
+        className={`py-20 bg-gray-50 transition-all duration-1000 transform ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Contact Information */}
-              <div>
+              <div
+                className={`space-y-8 transition-all duration-1000 delay-300 transform ${
+                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                }`}
+              >
                 <div
                   className="animate-fade-in"
                 >
@@ -380,7 +407,9 @@ export default function ContactSection() {
 
               {/* Contact Form */}
               <div
-                className="bg-white rounded-2xl shadow-xl p-8 animate-fade-in"
+                className={`bg-white rounded-2xl shadow-xl p-8 transition-all duration-1000 delay-500 transform ${
+                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+                }`}
               >
                 <ContactForm />
               </div>
