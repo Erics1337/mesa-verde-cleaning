@@ -13,10 +13,17 @@ const nextConfig = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
     };
-    // Add watchOptions to increase timeout
+    // Increase chunk loading timeout
     config.watchOptions = {
-      aggregateTimeout: 300,
+      aggregateTimeout: 1000,
       poll: 1000,
+    };
+    // Add performance hints
+    config.performance = {
+      ...config.performance,
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
     };
     return config;
   },
