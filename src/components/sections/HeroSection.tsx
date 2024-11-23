@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 import HeroContent from './HeroContent'
 import ScrollIndicator from './ScrollIndicator'

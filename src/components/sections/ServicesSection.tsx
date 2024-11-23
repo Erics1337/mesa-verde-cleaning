@@ -1,5 +1,3 @@
-'use client'
-
 import { FiHome, FiBox, FiTool, FiCalendar, FiStar, FiCheckCircle } from 'react-icons/fi'
 
 const services = [

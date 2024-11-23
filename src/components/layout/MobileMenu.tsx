@@ -1,5 +1,3 @@
-'use client'
-
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { FiX } from 'react-icons/fi'
