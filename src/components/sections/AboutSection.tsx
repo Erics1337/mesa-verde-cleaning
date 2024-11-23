@@ -28,7 +28,7 @@ export default function AboutSection() {
           <div className="relative animate-fade-in">
             <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
               <Image
-                src="/images/about-cleaning.jpg"
+                src="/images/about-cleaning.jpg.svg"
                 alt="Professional home cleaning service in Mancos"
                 width={800}
                 height={600}
