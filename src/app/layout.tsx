@@ -6,8 +6,18 @@ import SchemaOrg from '@/components/SchemaOrg'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
+import ReCaptchaProvider from '@/components/providers/ReCaptchaProvider'
 
 const inter = Inter({ subsets: ['latin'] })
+
+const csp = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel.live https://*.vercel.app https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: https://www.google-analytics.com;
+  frame-src 'self' https://www.google.com;
+  connect-src 'self' https://www.google-analytics.com https://*.vercel.live https://*.vercel.app;
+`.replace(/\s+/g, ' ').trim()
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -46,7 +56,7 @@ export const metadata: Metadata = {
     },
   },
   other: {
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel.live https://*.vercel.app; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.vercel.live https://*.vercel.app;"
+    'Content-Security-Policy': csp
   }
 }
 
@@ -58,15 +68,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel.live https://*.vercel.app; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.vercel.live https://*.vercel.app;" />
+        <meta httpEquiv="Content-Security-Policy" content={csp} />
       </head>
       <body suppressHydrationWarning={true}>
-        <AnalyticsProvider>
-          <SchemaOrg />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </AnalyticsProvider>
+        <ReCaptchaProvider>
+          <AnalyticsProvider>
+            <SchemaOrg />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </AnalyticsProvider>
+        </ReCaptchaProvider>
       </body>
     </html>
   )

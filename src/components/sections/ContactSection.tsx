@@ -324,99 +324,90 @@ export default function ContactSection() {
   })
 
   return (
-    <GoogleReCaptchaProvider
-      reCaptchaKey={siteConfig.recaptcha.siteKey || ''}
-      scriptProps={{
-        async: true,
-        defer: true,
-        appendTo: 'head',
-      }}
+    <section
+      id="contact"
+      ref={elementRef}
+      className={`py-20 bg-gray-50 transition-all duration-1000 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
     >
-      <section
-        id="contact"
-        ref={elementRef}
-        className={`py-20 bg-gray-50 transition-all duration-1000 transform ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-              {/* Contact Information */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Contact Information */}
+            <div
+              className={`space-y-8 transition-all duration-1000 delay-300 transform ${
+                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+              }`}
+            >
               <div
-                className={`space-y-8 transition-all duration-1000 delay-300 transform ${
-                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-                }`}
+                className="animate-fade-in"
               >
-                <div
-                  className="animate-fade-in"
-                >
-                  <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-8">
-                    Get in Touch
-                  </h2>
-                  <p className="text-lg text-gray-600 mb-12">
-                    Ready to experience the best cleaning service in Mesa Verde? 
-                    Contact us today for a free quote or to schedule your first cleaning.
-                  </p>
+                <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-8">
+                  Get in Touch
+                </h2>
+                <p className="text-lg text-gray-600 mb-12">
+                  Ready to experience the best cleaning service in Mesa Verde? 
+                  Contact us today for a free quote or to schedule your first cleaning.
+                </p>
 
-                  <div className="space-y-6">
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <FiMapPin className="h-6 w-6 text-blue-600 mt-1" />
-                      </div>
-                      <div className="ml-4">
-                        <h3 className="text-lg font-medium text-gray-900">Location</h3>
-                        <p className="text-gray-600">{siteConfig.contact.address}</p>
-                      </div>
+                <div className="space-y-6">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <FiMapPin className="h-6 w-6 text-blue-600 mt-1" />
                     </div>
-
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <FiPhone className="h-6 w-6 text-blue-600 mt-1" />
-                      </div>
-                      <div className="ml-4">
-                        <h3 className="text-lg font-medium text-gray-900">Phone</h3>
-                        <p className="text-gray-600">{siteConfig.contact.phone}</p>
-                      </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-gray-900">Location</h3>
+                      <p className="text-gray-600">{siteConfig.contact.address}</p>
                     </div>
+                  </div>
 
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <FiMail className="h-6 w-6 text-blue-600 mt-1" />
-                      </div>
-                      <div className="ml-4">
-                        <h3 className="text-lg font-medium text-gray-900">Email</h3>
-                        <p className="text-gray-600">{siteConfig.contact.email}</p>
-                      </div>
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <FiPhone className="h-6 w-6 text-blue-600 mt-1" />
                     </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-gray-900">Phone</h3>
+                      <p className="text-gray-600">{siteConfig.contact.phone}</p>
+                    </div>
+                  </div>
 
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <FiClock className="h-6 w-6 text-blue-600 mt-1" />
-                      </div>
-                      <div className="ml-4">
-                        <h3 className="text-lg font-medium text-gray-900">Hours</h3>
-                        <p className="text-gray-600">Monday - Friday: 8am - 6pm</p>
-                        <p className="text-gray-600">Saturday: 9am - 4pm</p>
-                        <p className="text-gray-600">Sunday: Closed</p>
-                      </div>
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <FiMail className="h-6 w-6 text-blue-600 mt-1" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-gray-900">Email</h3>
+                      <p className="text-gray-600">{siteConfig.contact.email}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <FiClock className="h-6 w-6 text-blue-600 mt-1" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-gray-900">Hours</h3>
+                      <p className="text-gray-600">Monday - Friday: 8am - 6pm</p>
+                      <p className="text-gray-600">Saturday: 9am - 4pm</p>
+                      <p className="text-gray-600">Sunday: Closed</p>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Contact Form */}
-              <div
-                className={`bg-white rounded-2xl shadow-xl p-8 transition-all duration-1000 delay-500 transform ${
-                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-                }`}
-              >
-                <ContactForm />
-              </div>
+            {/* Contact Form */}
+            <div
+              className={`bg-white rounded-2xl shadow-xl p-8 transition-all duration-1000 delay-500 transform ${
+                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+              }`}
+            >
+              <ContactForm />
             </div>
           </div>
         </div>
-      </section>
-    </GoogleReCaptchaProvider>
+      </div>
+    </section>
   )
 }
