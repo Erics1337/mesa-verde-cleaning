@@ -4,8 +4,45 @@ import sgMail from '@sendgrid/mail'
 import { serverConfig } from '@/utils/config'
 
 // Initialize SendGrid
-if (serverConfig.email.serviceApiKey) {
-  sgMail.setApiKey(serverConfig.email.serviceApiKey)
+if (!serverConfig.email.serviceApiKey) {
+  console.error('SendGrid API key is missing')
+} else {
+  try {
+    console.log('Initializing SendGrid with API key:', serverConfig.email.serviceApiKey.substring(0, 10) + '...')
+    sgMail.setApiKey(serverConfig.email.serviceApiKey)
+    
+    // Test API key validity
+    const testMsg = {
+      to: serverConfig.email.toAddress,
+      from: {
+        email: serverConfig.email.fromAddress,
+        name: 'Mesa Verde Cleaning Test'
+      },
+      subject: 'SendGrid Configuration Test',
+      text: 'This is a test email to verify SendGrid configuration.'
+    }
+    
+    console.log('Sending test email with config:', {
+      to: testMsg.to,
+      from: testMsg.from,
+      subject: testMsg.subject
+    })
+    
+    sgMail.send(testMsg)
+      .then((response) => {
+        console.log('SendGrid test email sent successfully:', response)
+      })
+      .catch((error) => {
+        console.error('SendGrid test failed:', {
+          message: error.message,
+          response: error.response?.body,
+          code: error.code,
+          fullError: JSON.stringify(error, null, 2)
+        })
+      })
+  } catch (error) {
+    console.error('Failed to initialize SendGrid:', error)
+  }
 }
 
 // Rate limiting setup
@@ -88,11 +125,14 @@ export async function POST(request: NextRequest) {
 
     // Parse and validate request body
     const body = await request.json()
+    console.log('Received form data:', { ...body, recaptchaToken: '[REDACTED]' })
+    
     const validatedData = contactSchema.parse(body)
 
     // Verify reCAPTCHA
     const isRecaptchaValid = await verifyRecaptcha(validatedData.recaptchaToken)
     if (!isRecaptchaValid) {
+      console.error('reCAPTCHA verification failed')
       return NextResponse.json(
         { error: 'reCAPTCHA verification failed' },
         { status: 400 }
@@ -102,36 +142,88 @@ export async function POST(request: NextRequest) {
     // Prepare email
     const msg = {
       to: serverConfig.email.toAddress,
-      from: serverConfig.email.fromAddress,
+      from: {
+        email: serverConfig.email.fromAddress,
+        name: 'Mesa Verde Cleaning Contact Form'
+      },
       replyTo: validatedData.email,
       subject: `New Contact Form Submission - ${validatedData.service}`,
       text: `
-Name: ${validatedData.name}
-Email: ${validatedData.email}
-Phone: ${validatedData.phone}
-Service: ${validatedData.service}
-Preferred Contact Method: ${validatedData.preferredContact}
+New contact form submission received:
 
-Message:
+FROM: ${validatedData.name} <${validatedData.email}>
+PHONE: ${validatedData.phone}
+SERVICE: ${validatedData.service}
+PREFERRED CONTACT: ${validatedData.preferredContact}
+
+MESSAGE:
 ${validatedData.message}
       `,
       html: `
-<h2>New Contact Form Submission</h2>
-<p><strong>Name:</strong> ${validatedData.name}</p>
-<p><strong>Email:</strong> ${validatedData.email}</p>
-<p><strong>Phone:</strong> ${validatedData.phone}</p>
-<p><strong>Service:</strong> ${validatedData.service}</p>
-<p><strong>Preferred Contact Method:</strong> ${validatedData.preferredContact}</p>
-<h3>Message:</h3>
-<p>${validatedData.message.replace(/\n/g, '<br>')}</p>
-      `,
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+  <h2>New Contact Form Submission</h2>
+  <p><strong>From:</strong> ${validatedData.name} &lt;${validatedData.email}&gt;</p>
+  <p><strong>Phone:</strong> ${validatedData.phone}</p>
+  <p><strong>Service:</strong> ${validatedData.service}</p>
+  <p><strong>Preferred Contact:</strong> ${validatedData.preferredContact}</p>
+  <div style="margin-top: 20px;">
+    <h3>Message:</h3>
+    <p style="white-space: pre-wrap;">${validatedData.message}</p>
+  </div>
+</div>
+      `
     }
 
+    console.log('Attempting to send email with config:', {
+      toAddress: serverConfig.email.toAddress,
+      fromAddress: serverConfig.email.fromAddress,
+      hasApiKey: !!serverConfig.email.serviceApiKey
+    })
+
     // Send email
-    if (serverConfig.email.serviceApiKey) {
+    if (!serverConfig.email.serviceApiKey) {
+      console.error('Cannot send email: SendGrid API key is not configured')
+      return NextResponse.json(
+        { error: 'Email service is not configured' },
+        { status: 500 }
+      )
+    }
+
+    try {
+      console.log('SendGrid message configuration:', {
+        to: msg.to,
+        from: msg.from,
+        subject: msg.subject
+      })
+      
+      // Test SendGrid configuration
+      const testResponse = await sgMail.send({
+        to: 'erics1337@gmail.com',
+        from: 'erics1337@gmail.com',
+        subject: 'Test Email',
+        text: 'This is a test email to verify SendGrid configuration.'
+      })
+      console.log('Test email response:', testResponse)
+      
+      // Send actual email
       await sgMail.send(msg)
-    } else {
-      console.log('Email would have been sent:', msg)
+      console.log('Email sent successfully')
+    } catch (emailError: any) {
+      console.error('SendGrid error:', {
+        message: emailError.message,
+        response: emailError.response?.body,
+        code: emailError.code,
+        fullError: JSON.stringify(emailError, null, 2)
+      })
+      return NextResponse.json(
+        { 
+          error: 'Failed to send email',
+          details: emailError.message,
+          code: emailError.code,
+          responseBody: emailError.response?.body
+        },
+        { status: 500 }
+      )
     }
 
     return NextResponse.json({ success: true })
@@ -145,8 +237,17 @@ ${validatedData.message}
       )
     }
 
+    // Type guard to check if error is an Error object
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { error: 'Failed to process contact form', details: error.message },
+        { status: 500 }
+      )
+    }
+
+    // Fallback for any other type of error
     return NextResponse.json(
-      { error: 'Failed to process contact form' },
+      { error: 'An unexpected error occurred', details: String(error) },
       { status: 500 }
     )
   }
