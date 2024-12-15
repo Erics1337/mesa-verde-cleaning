@@ -59,10 +59,8 @@ function ContactForm() {
 
       const recaptchaToken = await executeRecaptcha('contact_form')
 
-      // Use relative URL in development, full URL in production
-      const apiUrl = process.env.NODE_ENV === 'production' 
-        ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/contact`
-        : '/api/contact'
+      // Always use relative URL to avoid CSP issues
+      const apiUrl = '/api/contact'
 
       console.log('Submitting to:', apiUrl)
 

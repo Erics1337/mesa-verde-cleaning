@@ -12,17 +12,14 @@ const nextConfig = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
     };
-    // Increase chunk loading timeout
     config.watchOptions = {
       aggregateTimeout: 1000,
       poll: 1000,
     };
-    // Add performance hints
     config.performance = {
-      ...config.performance,
-      hints: false,
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000
+      hints: 'warning',
+      maxAssetSize: 500000,
+      maxEntrypointSize: 500000,
     };
     return config;
   },
@@ -35,6 +32,15 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Origin', value: '*' },
           { key: 'Access-Control-Allow-Methods', value: 'GET,POST,OPTIONS' },
           { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version' },
+        ],
+      },
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.vercel.live https://*.vercel.app https://mesaverdecleaning.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com; frame-src https://www.google.com;"
+          }
         ],
       },
     ];
