@@ -118,9 +118,7 @@ export default function TestimonialsSection() {
       ref={elementRef}
       className="py-12 sm:py-16 lg:py-20 bg-gray-50"
     >
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
             What Our Clients Say
@@ -129,74 +127,79 @@ export default function TestimonialsSection() {
             Don't just take our word for it - hear from our satisfied customers
           </p>
         </div>
-
         <div 
-          className="relative max-w-3xl mx-auto"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          className={`transition-all duration-1000 transform ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
         >
-          <button
-            onClick={prevTestimonial}
-            disabled={isAnimating}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 lg:-translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-opacity z-10"
+          <div 
+            className="relative max-w-3xl mx-auto"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            <FiChevronLeft className="w-6 h-6 text-gray-600" />
-          </button>
-
-          <div className="relative h-[300px] overflow-hidden bg-white rounded-2xl shadow-xl">
-            <div 
-              className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            <button
+              onClick={prevTestimonial}
+              disabled={isAnimating}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 lg:-translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-opacity z-10"
             >
-              {testimonials.map((testimonial, index) => (
-                <div 
-                  key={index}
-                  className="w-full flex-shrink-0"
-                >
-                  <div className="h-[300px] p-6">
-                    <TestimonialContent testimonial={testimonial} />
+              <FiChevronLeft className="w-6 h-6 text-gray-600" />
+            </button>
+
+            <div className="relative h-[300px] overflow-hidden bg-white rounded-2xl shadow-xl">
+              <div 
+                className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div 
+                    key={index}
+                    className="w-full flex-shrink-0"
+                  >
+                    <div className="h-[300px] p-6">
+                      <TestimonialContent testimonial={testimonial} />
+                    </div>
                   </div>
-                </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={nextTestimonial}
+              disabled={isAnimating}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 lg:translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-opacity z-10"
+            >
+              <FiChevronRight className="w-6 h-6 text-gray-600" />
+            </button>
+
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              className="absolute bottom-4 right-4 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none transition-opacity"
+            >
+              {isPaused ? (
+                <FiPlay className="w-4 h-4 text-gray-600" />
+              ) : (
+                <FiPause className="w-4 h-4 text-gray-600" />
+              )}
+            </button>
+
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (isAnimating || index === currentIndex) return
+                    setIsAnimating(true)
+                    setCurrentIndex(index)
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentIndex === index
+                      ? 'bg-primary-600 w-4'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
               ))}
             </div>
-          </div>
-
-          <button
-            onClick={nextTestimonial}
-            disabled={isAnimating}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 lg:translate-x-16 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-opacity z-10"
-          >
-            <FiChevronRight className="w-6 h-6 text-gray-600" />
-          </button>
-
-          <button
-            onClick={() => setIsPaused(!isPaused)}
-            className="absolute bottom-4 right-4 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50 focus:outline-none transition-opacity"
-          >
-            {isPaused ? (
-              <FiPlay className="w-4 h-4 text-gray-600" />
-            ) : (
-              <FiPause className="w-4 h-4 text-gray-600" />
-            )}
-          </button>
-
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (isAnimating || index === currentIndex) return
-                  setIsAnimating(true)
-                  setCurrentIndex(index)
-                }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  currentIndex === index
-                    ? 'bg-primary-600 w-4'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
           </div>
         </div>
       </div>

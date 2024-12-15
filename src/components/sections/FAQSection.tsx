@@ -76,9 +76,7 @@ export default function FAQSection() {
       ref={elementRef}
       className="py-12 sm:py-16 lg:py-20 bg-gray-50"
     >
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
             Frequently Asked Questions
@@ -88,74 +86,78 @@ export default function FAQSection() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-12 mt-8">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleCategoryClick(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                activeCategory === category
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-8 max-w-3xl mx-auto">
-          <div className="space-y-4">
-            {filteredFaqs.map((faq, index) => (
-              <div
-                key={index}
-                className={`transition-all duration-300 transform ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        <div className={`transition-all duration-1000 transform ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="flex flex-wrap justify-center gap-2 mb-12 mt-8">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                  activeCategory === category
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-4 text-left focus:outline-none"
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-medium text-gray-900">
-                      {faq.question}
-                    </h3>
-                    <span className="ml-6 flex-shrink-0">
-                      {openIndex === index ? (
-                        <FiMinus className="h-5 w-5 text-blue-500" />
-                      ) : (
-                        <FiPlus className="h-5 w-5 text-blue-500" />
-                      )}
-                    </span>
-                  </div>
-                </button>
-                
-                <div
-                  className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                    openIndex === index ? 'max-h-96' : 'max-h-0'
-                  }`}
-                >
-                  <div className="px-6 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </div>
-                </div>
-              </div>
+                {category}
+              </button>
             ))}
           </div>
-        </div>
 
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
-            Still have questions? We're here to help!
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Contact Us
-          </a>
+          <div className="mt-8 max-w-3xl mx-auto">
+            <div className="space-y-4">
+              {filteredFaqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className={`transition-all duration-300 transform ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="w-full px-6 py-4 text-left focus:outline-none"
+                  >
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-medium text-gray-900">
+                        {faq.question}
+                      </h3>
+                      <span className="ml-6 flex-shrink-0">
+                        {openIndex === index ? (
+                          <FiMinus className="h-5 w-5 text-blue-500" />
+                        ) : (
+                          <FiPlus className="h-5 w-5 text-blue-500" />
+                        )}
+                      </span>
+                    </div>
+                  </button>
+                  
+                  <div
+                    className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                      openIndex === index ? 'max-h-96' : 'max-h-0'
+                    }`}
+                  >
+                    <div className="px-6 pb-4">
+                      <p className="text-gray-600">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600 mb-4">
+              Still have questions? We're here to help!
+            </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Contact Us
+            </a>
+          </div>
         </div>
       </div>
     </section>
