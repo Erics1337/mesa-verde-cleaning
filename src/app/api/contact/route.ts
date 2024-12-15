@@ -12,6 +12,27 @@ const sesClient = new SESClient({
   },
 })
 
+// Validate AWS configuration
+function validateAwsConfig() {
+  const requiredEnvVars = {
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    EMAIL_FROM_ADDRESS: process.env.EMAIL_FROM_ADDRESS,
+    EMAIL_TO_ADDRESS: process.env.EMAIL_TO_ADDRESS,
+  }
+
+  const missingVars = Object.entries(requiredEnvVars)
+    .filter(([, value]) => !value)
+    .map(([key]) => key)
+
+  if (missingVars.length > 0) {
+    console.error('Missing required environment variables:', missingVars)
+    return false
+  }
+  return true
+}
+
 // Rate limiting setup
 const rateLimit = new Map<string, { count: number; timestamp: number }>()
 
@@ -81,6 +102,15 @@ function checkRateLimit(ip: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate AWS configuration
+    if (!validateAwsConfig()) {
+      console.error('AWS configuration is incomplete')
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      )
+    }
+
     // Check rate limit
     const ip = request.ip || 'unknown'
     if (!checkRateLimit(ip)) {
@@ -128,9 +158,9 @@ export async function POST(request: NextRequest) {
 
     // Send email using AWS SES
     const command = new SendEmailCommand({
-      Source: 'contact@mesaverdecleaning.com', // This must be a verified email in SES
+      Source: process.env.EMAIL_FROM_ADDRESS,
       Destination: {
-        ToAddresses: ['contact@mesaverdecleaning.com'],
+        ToAddresses: [process.env.EMAIL_TO_ADDRESS || 'contact@mesaverdecleaning.com'],
       },
       Message: {
         Subject: {
@@ -151,7 +181,7 @@ export async function POST(request: NextRequest) {
     } catch (error) {
       console.error('Failed to send email:', error)
       return NextResponse.json(
-        { error: 'Failed to send email' },
+        { error: 'Failed to send email', details: error instanceof Error ? error.message : 'Unknown error' },
         { status: 500 }
       )
     }
@@ -160,7 +190,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error processing contact form:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
