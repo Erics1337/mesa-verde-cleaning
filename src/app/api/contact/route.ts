@@ -176,7 +176,6 @@ export async function POST(request: NextRequest) {
       Destination: {
         ToAddresses: [process.env.EMAIL_TO_ADDRESS || 'contact@mesaverdecleaning.com'],
       },
-      ConfigurationSetName: 'ContactForm',
       Message: {
         Subject: {
           Data: `New Contact Form Submission from ${name}`,
