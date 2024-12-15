@@ -170,20 +170,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Prepare email content
-    const emailContent = `
-      New Contact Form Submission:
-      
-      Name: ${name}
-      Email: ${email}
-      Phone: ${phone}
-      Service Requested: ${service}
-      Preferred Contact Method: ${preferredContact}
-      
-      Message:
-      ${message}
-    `
-
     // Send email using AWS SES
     const command = new SendEmailCommand({
       Source: process.env.EMAIL_FROM_ADDRESS,
@@ -197,7 +183,20 @@ export async function POST(request: NextRequest) {
         },
         Body: {
           Text: {
-            Data: emailContent,
+            Data: `New Contact Form Submission\n\nFrom: ${name}\nEmail: ${email}\nPhone: ${phone}\nService Requested: ${service}\nPreferred Contact Method: ${preferredContact}\n\nMessage:\n${message}`,
+            Charset: 'UTF-8',
+          },
+          Html: {
+            Data: `
+              <h2>New Contact Form Submission</h2>
+              <p><strong>From:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Phone:</strong> ${phone}</p>
+              <p><strong>Service Requested:</strong> ${service}</p>
+              <p><strong>Preferred Contact Method:</strong> ${preferredContact}</p>
+              <h3>Message:</h3>
+              <p>${message.replace(/\n/g, '<br>')}</p>
+            `,
             Charset: 'UTF-8',
           },
         },
