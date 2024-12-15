@@ -100,8 +100,32 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    },
+  })
+}
+
 export async function POST(request: NextRequest) {
+  console.log('API route hit:', request.url)
+
   try {
+    // Log environment variables (excluding sensitive data)
+    console.log('Environment check:', {
+      hasAwsRegion: !!process.env.AWS_REGION,
+      hasAwsKey: !!process.env.AWS_ACCESS_KEY_ID,
+      hasAwsSecret: !!process.env.AWS_SECRET_ACCESS_KEY,
+      hasFromEmail: !!process.env.EMAIL_FROM_ADDRESS,
+      hasToEmail: !!process.env.EMAIL_TO_ADDRESS,
+      nodeEnv: process.env.NODE_ENV,
+    })
+
     // Validate AWS configuration
     if (!validateAwsConfig()) {
       console.error('AWS configuration is incomplete')
@@ -111,7 +135,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check rate limit
     const ip = request.ip || 'unknown'
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
@@ -120,11 +143,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Parse and validate request body
     const body = await request.json()
+    console.log('Received form data:', {
+      ...body,
+      recaptchaToken: '[REDACTED]'
+    })
+
     const result = contactSchema.safeParse(body)
 
     if (!result.success) {
+      console.error('Validation error:', result.error.errors)
       return NextResponse.json(
         { error: 'Invalid form data', details: result.error.errors },
         { status: 400 }
