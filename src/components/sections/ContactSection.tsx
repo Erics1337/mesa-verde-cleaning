@@ -59,7 +59,14 @@ function ContactForm() {
 
       const recaptchaToken = await executeRecaptcha('contact_form')
 
-      const response = await fetch('/api/contact', {
+      // Use relative URL in development, full URL in production
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/contact`
+        : '/api/contact'
+
+      console.log('Submitting to:', apiUrl)
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,6 +80,7 @@ function ContactForm() {
       const result = await response.json()
 
       if (!response.ok) {
+        console.error('Form submission error:', result)
         throw new Error(result.error || 'Failed to submit form')
       }
 
