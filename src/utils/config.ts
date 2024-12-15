@@ -46,30 +46,38 @@ export const siteConfig: SiteConfig = {
 
 interface ServerConfig {
   email: {
-    serviceApiKey?: string
     fromAddress: string
     toAddress: string
+  }
+  recaptcha: {
+    secretKey?: string
+  }
+  aws: {
+    region: string
+    accessKeyId?: string
+    secretAccessKey?: string
   }
   rateLimit: {
     maxRequests: number
     windowMs: number
   }
-  recaptcha: {
-    secretKey?: string
-  }
 }
 
 export const serverConfig: ServerConfig = {
   email: {
-    serviceApiKey: process.env.EMAIL_SERVICE_API_KEY,
     fromAddress: process.env.EMAIL_FROM_ADDRESS || 'contact@mesaverdecleaning.com',
-    toAddress: process.env.EMAIL_TO_ADDRESS || 'admin@mesaverdecleaning.com',
+    toAddress: process.env.EMAIL_TO_ADDRESS || 'contact@mesaverdecleaning.com',
+  },
+  recaptcha: {
+    secretKey: process.env.RECAPTCHA_SECRET_KEY,
+  },
+  aws: {
+    region: process.env.AWS_REGION || 'us-east-1',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
   rateLimit: {
     maxRequests: Number(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
     windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS) || 900000, // 15 minutes
-  },
-  recaptcha: {
-    secretKey: process.env.RECAPTCHA_SECRET_KEY,
   },
 }

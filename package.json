@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.712.0",
     "@headlessui/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.1",
     "@sendgrid/mail": "^8.1.1",
