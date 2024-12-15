@@ -7,6 +7,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
 import ReCaptchaProvider from '@/components/providers/ReCaptchaProvider'
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -71,6 +72,7 @@ export default function RootLayout({
         <meta httpEquiv="Content-Security-Policy" content={csp} />
       </head>
       <body suppressHydrationWarning={true}>
+        <Analytics/>
         <ReCaptchaProvider>
           <AnalyticsProvider>
             <SchemaOrg />
