@@ -12,7 +12,7 @@ export default function HeroSection() {
           alt="Professional cleaning service in action"
           fill
           priority
-          className="object-cover"
+          className="object-cover h-full w-full"
           quality={90}
         />
         <div className="absolute inset-0 bg-black/40" />
