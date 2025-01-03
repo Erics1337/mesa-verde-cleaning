@@ -208,7 +208,7 @@ function ContactForm() {
               id="contact-email"
               value="email"
               {...register('preferredContact')}
-              className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+              className="focus:ring-blue-500 h-4 w-4 text-primary-600 border-gray-300"
             />
             <label htmlFor="contact-email" className="ml-2 text-sm text-gray-700">
               Email
@@ -220,7 +220,7 @@ function ContactForm() {
               id="contact-phone"
               value="phone"
               {...register('preferredContact')}
-              className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+              className="focus:ring-blue-500 h-4 w-4 text-primary-600 border-gray-300"
             />
             <label htmlFor="contact-phone" className="ml-2 text-sm text-gray-700">
               Phone
@@ -257,7 +257,7 @@ function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+          className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 ${
             isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
           }`}
         >
@@ -352,7 +352,7 @@ export default function ContactSection() {
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
-                      <FiMapPin className="h-6 w-6 text-blue-600 mt-1" />
+                      <FiMapPin className="h-6 w-6 text-primary-600 mt-1" />
                     </div>
                     <div className="ml-4">
                       <h3 className="text-lg font-medium text-gray-900">Location</h3>
@@ -362,7 +362,7 @@ export default function ContactSection() {
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
-                      <FiPhone className="h-6 w-6 text-blue-600 mt-1" />
+                      <FiPhone className="h-6 w-6 text-primary-600 mt-1" />
                     </div>
                     <div className="ml-4">
                       <h3 className="text-lg font-medium text-gray-900">Phone</h3>
@@ -372,7 +372,7 @@ export default function ContactSection() {
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
-                      <FiMail className="h-6 w-6 text-blue-600 mt-1" />
+                      <FiMail className="h-6 w-6 text-primary-600 mt-1" />
                     </div>
                     <div className="ml-4">
                       <h3 className="text-lg font-medium text-gray-900">Email</h3>
@@ -382,7 +382,7 @@ export default function ContactSection() {
 
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
-                      <FiClock className="h-6 w-6 text-blue-600 mt-1" />
+                      <FiClock className="h-6 w-6 text-primary-600 mt-1" />
                     </div>
                     <div className="ml-4">
                       <h3 className="text-lg font-medium text-gray-900">Hours</h3>

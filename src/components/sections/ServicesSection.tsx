@@ -83,13 +83,13 @@ export default function ServicesSection() {
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 {service.popular && (
-                  <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
+                  <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-primary-600 text-white text-sm font-medium rounded-full">
                     Most Popular
                   </div>
                 )}
                 
                 <div className="flex items-center mb-4">
-                  <div className="p-2 bg-blue-100 rounded-lg">
+                  <div className="p-2 bg-primary-100 rounded-lg">
                     {service.icon}
                   </div>
                   <h3 className="ml-4 text-xl font-semibold text-gray-900">
@@ -116,7 +116,7 @@ export default function ServicesSection() {
                   </div>
                   <a
                     href="#contact"
-                    className="block w-full py-3 px-4 text-center text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-150"
+                    className="block w-full py-3 px-4 text-center text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition duration-150"
                   >
                     Get a Free Quote
                   </a>

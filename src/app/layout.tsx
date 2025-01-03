@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Quicksand } from 'next/font/google'
 import './globals.css'
 import { siteConfig } from '@/utils/config'
 import SchemaOrg from '@/components/SchemaOrg'
@@ -9,7 +9,10 @@ import AnalyticsProvider from '@/components/analytics/AnalyticsProvider'
 import ReCaptchaProvider from '@/components/providers/ReCaptchaProvider'
 import { Analytics } from "@vercel/analytics/react"
 
-const inter = Inter({ subsets: ['latin'] })
+const quicksand = Quicksand({ 
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 const csp = `
   default-src 'self';
@@ -67,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={quicksand.className}>
       <head>
         <meta httpEquiv="Content-Security-Policy" content={csp} />
       </head>

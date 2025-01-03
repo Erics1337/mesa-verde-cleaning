@@ -96,7 +96,7 @@ export default function FAQSection() {
                 onClick={() => handleCategoryClick(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                   activeCategory === category
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -125,9 +125,9 @@ export default function FAQSection() {
                       </h3>
                       <span className="ml-6 flex-shrink-0">
                         {openIndex === index ? (
-                          <FiMinus className="h-5 w-5 text-blue-500" />
+                          <FiMinus className="h-5 w-5 text-primary-500" />
                         ) : (
-                          <FiPlus className="h-5 w-5 text-blue-500" />
+                          <FiPlus className="h-5 w-5 text-primary-500" />
                         )}
                       </span>
                     </div>
@@ -153,7 +153,7 @@ export default function FAQSection() {
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
             >
               Contact Us
             </a>

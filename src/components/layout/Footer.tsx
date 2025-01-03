@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Mesa Verde Cleaning</h3>
+            <h3 className="text-white text-lg font-semibold mb-4">Mesa Verde Cleaning LLC</h3>
             <div className="space-y-4">
               <p className="flex items-center">
                 <FiMapPin className="mr-2" />
@@ -92,7 +92,8 @@ export default function Footer() {
               )}
             </div>
             <div className="space-y-2 text-sm">
-              <p>Licensed & Insured</p>
+              {/* <p>Licensed & Insured</p> */}
+              <p>Limited Liability Company</p>
               <p>Eco-Friendly Products</p>
               <p>100% Satisfaction Guaranteed</p>
             </div>

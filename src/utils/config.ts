@@ -23,7 +23,7 @@ interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://mesaverdecleaning.com',
-  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Mesa Verde Cleaning',
+  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Mesa Verde Cleaning LLC',
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Professional cleaning services in Mesa Verde, Colorado',
   image: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://mesaverdecleaning.com'}/images/logo.svg`,
   contact: {

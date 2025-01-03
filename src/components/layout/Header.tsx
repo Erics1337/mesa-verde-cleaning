@@ -10,8 +10,9 @@ const navigation = [
   { name: 'Home', href: '#' },
   { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
-  { name: 'FAQ', href: '#faq' },
   { name: 'Contact', href: '#contact' },
+  { name: 'Testimonials', href: '#testimonials' },
+  { name: 'FAQ', href: '#faq' },
 ]
 
 export default function Header() {
@@ -24,7 +25,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
+            <Link href="/" className="text-2xl font-bold text-primary-600">
               Mesa Verde Cleaning
             </Link>
           </div>
@@ -36,7 +37,7 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 {item.name}
               </a>
@@ -54,7 +55,7 @@ export default function Header() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(true)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
             >
               <span className="sr-only">Open main menu</span>
               <FiMenu className="block h-6 w-6" />
