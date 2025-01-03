@@ -17,9 +17,14 @@ const features = [
   },
   {
     icon: <FiShield className="w-5 h-5 text-indigo-500" />,
-    title: 'Licensed & Insured',
-    description: "Full insurance coverage and LLC status for your complete peace of mind.",
+    title: 'Trusted Coverage Backed by an LLC',
+    description: "We have LLC status for asset protection and your peace of mind.",
   },
+  // {
+  //   icon: <FiShield className="w-5 h-5 text-indigo-500" />,
+  //   title: 'Licensed & Insured',
+  //   description: "Full insurance coverage and LLC status for your complete peace of mind.",
+  // },
 ]
 
 export default function AboutSection() {
@@ -42,7 +47,7 @@ export default function AboutSection() {
           <div className="relative animate-fade-in">
             <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
               <Image
-                src="/images/about-cleaning.jpg"
+                src="/images/mvc2.png"
                 alt="Professional home cleaning service in Mancos"
                 width={800}
                 height={600}
@@ -52,7 +57,7 @@ export default function AboutSection() {
             {/* Experience Badge */}
             <div className="absolute -bottom-6 -right-6 bg-white rounded-lg shadow-xl p-6">
               <div className="text-center">
-                <span className="block text-3xl font-bold text-blue-600">3+</span>
+                <span className="block text-3xl font-bold text-primary-600">3+</span>
                 <span className="block text-gray-600">Years of Service</span>
               </div>
             </div>

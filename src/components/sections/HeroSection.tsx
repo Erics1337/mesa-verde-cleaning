@@ -8,7 +8,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-cleaning.jpg"
+          src="/images/mvc1.png"
           alt="Professional cleaning service in action"
           fill
           priority
