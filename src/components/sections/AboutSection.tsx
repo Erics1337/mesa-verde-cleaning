@@ -6,7 +6,7 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 const features = [
   {
-    icon: <FiHome className="w-5 h-5 text-green-500" />,
+    icon: <FiHome className="w-5 h-5 text-primary-500" />,
     title: 'Local Woman-Owned Business',
     description: 'Founded and operated by a local Mancos mother, we understand the unique needs of our community.',
   },

@@ -18,6 +18,10 @@ const schema = yup.object({
     .matches(/^[0-9-+()]*$/, 'Invalid phone number')
     .required('Phone number is required'),
   service: yup.string().required('Please select a service'),
+  propertyType: yup.string().required('Please select your property type'),
+  squareFootage: yup.string().required('Please select approximate square footage'),
+  cleaningFrequency: yup.string().required('Please select preferred frequency'),
+  propertyUse: yup.array().of(yup.string()),
   message: yup.string().required('Message is required'),
   preferredContact: yup.string().required('Please select preferred contact method'),
 }).required()
@@ -31,6 +35,36 @@ const services = [
   'Office Cleaning',
   'Post-Construction Cleaning',
   'Other',
+]
+
+const propertyTypes = [
+  'Single Family Home',
+  'Townhouse/Condo',
+  'Vacation Rental',
+  'Commercial Space',
+]
+
+const squareFootageRanges = [
+  'Under 1,000 sq ft',
+  '1,000 - 2,000 sq ft',
+  '2,000 - 3,000 sq ft',
+  '3,000 - 4,000 sq ft',
+  'Over 4,000 sq ft',
+]
+
+const cleaningFrequencies = [
+  'Weekly',
+  'Bi-weekly',
+  'Monthly',
+  'One-time',
+  'Custom Schedule',
+]
+
+const propertyUseOptions = [
+  'Primary Residence',
+  'Vacation Home',
+  'Short-term Rental',
+  'Long-term Rental',
 ]
 
 function ContactForm() {
@@ -173,18 +207,15 @@ function ContactForm() {
       </div>
 
       {/* Service */}
-      <div>
-        <label htmlFor="service" className="block text-sm font-medium text-gray-700">
-          Service Interested In
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-medium mb-2">
+          Service Type
         </label>
         <select
-          id="service"
           {...register('service')}
-          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-            errors.service ? 'border-red-500' : ''
-          }`}
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
         >
-          <option value="">Select a service</option>
+          <option value="">Select a Service</option>
           {services.map((service) => (
             <option key={service} value={service}>
               {service}
@@ -193,6 +224,107 @@ function ContactForm() {
         </select>
         {errors.service && (
           <p className="mt-1 text-sm text-red-600">{errors.service.message}</p>
+        )}
+      </div>
+
+      {/* Property Type */}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-medium mb-2">
+          Property Type
+        </label>
+        <select
+          {...register('propertyType')}
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+        >
+          <option value="">Select Property Type</option>
+          {propertyTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+        {errors.propertyType && (
+          <p className="mt-1 text-sm text-red-600">{errors.propertyType.message}</p>
+        )}
+      </div>
+
+      {/* Square Footage */}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-medium mb-2">
+          Approximate Square Footage
+        </label>
+        <select
+          {...register('squareFootage')}
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+        >
+          <option value="">Select Square Footage</option>
+          {squareFootageRanges.map((range) => (
+            <option key={range} value={range}>
+              {range}
+            </option>
+          ))}
+        </select>
+        {errors.squareFootage && (
+          <p className="mt-1 text-sm text-red-600">{errors.squareFootage.message}</p>
+        )}
+      </div>
+
+      {/* Cleaning Frequency */}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-medium mb-2">
+          Preferred Cleaning Frequency
+        </label>
+        <select
+          {...register('cleaningFrequency')}
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+        >
+          <option value="">Select Frequency</option>
+          {cleaningFrequencies.map((frequency) => (
+            <option key={frequency} value={frequency}>
+              {frequency}
+            </option>
+          ))}
+        </select>
+        {errors.cleaningFrequency && (
+          <p className="mt-1 text-sm text-red-600">{errors.cleaningFrequency.message}</p>
+        )}
+      </div>
+
+      {/* Property Use (Optional Checkboxes) */}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-medium mb-2">
+          Property Use (Optional)
+        </label>
+        <div className="space-y-2">
+          {propertyUseOptions.map((option) => (
+            <div key={option} className="flex items-center">
+              <input
+                type="checkbox"
+                {...register('propertyUse')}
+                value={option}
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              />
+              <label className="ml-2 text-gray-700">{option}</label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Message */}
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+          Message
+        </label>
+        <textarea
+          id="message"
+          rows={4}
+          {...register('message')}
+          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+            errors.message ? 'border-red-500' : ''
+          }`}
+        />
+        {errors.message && (
+          <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
         )}
       </div>
 
@@ -231,24 +363,6 @@ function ContactForm() {
           <p className="mt-1 text-sm text-red-600">
             {errors.preferredContact.message}
           </p>
-        )}
-      </div>
-
-      {/* Message */}
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-          Message
-        </label>
-        <textarea
-          id="message"
-          rows={4}
-          {...register('message')}
-          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
-            errors.message ? 'border-red-500' : ''
-          }`}
-        />
-        {errors.message && (
-          <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
         )}
       </div>
 

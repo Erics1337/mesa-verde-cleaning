@@ -15,7 +15,7 @@ const services = [
       'Floor care',
       'Regular maintenance of living spaces',
     ],
-    price: 'Starting at $40/hour',
+    price: 'Contact for pricing',
     popular: true,
   },
   {

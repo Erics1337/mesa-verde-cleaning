@@ -79,7 +79,7 @@ export default function ProductsSection() {
                 </CardHeader>
                 <CardContent>
                   <div className="mb-4">
-                    <h4 className="font-semibold text-green-600 mb-2">Ingredients:</h4>
+                    <h4 className="font-semibold text-primary-600 mb-2">Ingredients:</h4>
                     <ul className="list-disc list-inside space-y-1">
                       {product.ingredients.map((ingredient, i) => (
                         <li key={i} className="text-gray-600">{ingredient}</li>
@@ -88,7 +88,7 @@ export default function ProductsSection() {
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-green-600 mb-2">Instructions:</h4>
+                    <h4 className="font-semibold text-primary-600 mb-2">Instructions:</h4>
                     <ol className="list-decimal list-inside space-y-1">
                       {product.instructions.map((instruction, i) => (
                         <li key={i} className="text-gray-600">{instruction}</li>
