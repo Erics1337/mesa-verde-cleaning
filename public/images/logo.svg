@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="200" height="200" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <rect width="200" height="200" fill="#ffffff"/>
-  <g transform="translate(20,20)">
-    <path d="M80,40 L120,40 L160,120 L40,120 Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="4"/>
-    <path d="M60,70 L100,20 L140,70" fill="none" stroke="#2E7D32" stroke-width="4"/>
-    <circle cx="100" cy="90" r="15" fill="#81C784"/>
-  </g>
-  <text x="100" y="160" text-anchor="middle" font-family="Arial" font-size="16" fill="#333333">Mesa Verde</text>
-  <text x="100" y="180" text-anchor="middle" font-family="Arial" font-size="16" fill="#333333">Cleaning</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" version="1.1" viewBox="0 0 200 200"><rect width="200" height="200" fill="#fff"/><g transform="translate(20,20)"><path fill="#4CAF50" stroke="#2E7D32" stroke-width="4" d="M80,40 L120,40 L160,120 L40,120 Z"/><path fill="none" stroke="#2E7D32" stroke-width="4" d="M60,70 L100,20 L140,70"/><circle cx="100" cy="90" r="15" fill="#81C784"/></g><text x="100" y="160" fill="#333" font-family="Arial" font-size="16" text-anchor="middle">Mesa Verde</text><text x="100" y="180" fill="#333" font-family="Arial" font-size="16" text-anchor="middle">Cleaning</text></svg>
