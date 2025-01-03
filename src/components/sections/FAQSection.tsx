@@ -35,11 +35,11 @@ const faqs = [
     answer: 'Yes, we offer discounted rates for regular recurring services. Ask about our monthly and bi-monthly service packages.',
     category: 'Pricing',
   },
-  {
-    question: 'Are you insured?',
-    answer: 'Yes, we are fully licensed and insured with comprehensive coverage for your peace of mind.',
-    category: 'Business',
-  },
+  // {
+  //   question: 'Are you insured?',
+  //   answer: 'Yes, we are fully licensed and insured with comprehensive coverage for your peace of mind.',
+  //   category: 'Business',
+  // },
   {
     question: 'What areas do you serve?',
     answer: 'We primarily serve Mancos and surrounding areas including Cortez, Dolores, and the Mesa Verde National Park area.',
