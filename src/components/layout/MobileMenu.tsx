@@ -1,75 +1,110 @@
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
 import { FiX } from 'react-icons/fi'
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useEffect } from 'react'
 
-type MobileMenuProps = {
-  isOpen: boolean
-  setIsOpen: (isOpen: boolean) => void
-  navigation: Array<{ name: string; href: string }>
+interface MobileMenuProps {
+  open: boolean
+  setOpen: (open: boolean) => void
+  services: Array<{
+    name: string
+    description: string
+    href: string
+  }>
+  onGetQuote: () => void
+  navigation: Array<{
+    name: string
+    href: string
+  }>
   scrollToSection: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
 }
 
-export default function MobileMenu({ isOpen, setIsOpen, navigation, scrollToSection }: MobileMenuProps) {
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setIsOpen(false)
-    scrollToSection(e, href)
-  }
+export default function MobileMenu({
+  open,
+  setOpen,
+  services,
+  onGetQuote,
+  navigation,
+  scrollToSection,
+}: MobileMenuProps) {
+  useEffect(() => {
+    console.log('MobileMenu open state:', open)
+  }, [open])
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 overflow-hidden z-50" onClose={setIsOpen}>
-        <div className="absolute inset-0 overflow-hidden">
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog 
+        as="div" 
+        className="fixed inset-0 z-50 lg:hidden" 
+        onClose={() => setOpen(false)}
+      >
+        <div className="fixed inset-0 z-50">
           <Transition.Child
             as={Fragment}
-            enter="transform transition ease-in-out duration-500"
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <Transition.Child
+            as={Fragment}
+            enter="transform transition ease-in-out duration-300"
             enterFrom="translate-x-full"
             enterTo="translate-x-0"
-            leave="transform transition ease-in-out duration-500"
+            leave="transform transition ease-in-out duration-300"
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-              <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                <div className="px-4 sm:px-6">
-                  <div className="flex items-start justify-between">
-                    <Dialog.Title className="text-lg font-medium text-gray-900">
-                      Menu
-                    </Dialog.Title>
-                    <div className="ml-3 flex h-7 items-center">
-                      <button
-                        type="button"
-                        className="rounded-md bg-white text-gray-400 hover:text-gray-500"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <span className="sr-only">Close panel</span>
-                        <FiX className="h-6 w-6" aria-hidden="true" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                  <div className="flex flex-col space-y-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        onClick={(e) => handleClick(e, item.href)}
-                        className="text-gray-700 hover:text-primary-600 px-3 py-2 text-base font-medium transition-colors duration-200"
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+            <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl">
+              <div className="flex items-center justify-between p-4 border-b">
+                <Dialog.Title className="text-lg font-medium text-gray-900">
+                  Menu
+                </Dialog.Title>
+                <button
+                  type="button"
+                  className="rounded-md p-2 text-gray-400 hover:text-gray-500"
+                  onClick={() => setOpen(false)}
+                >
+                  <span className="sr-only">Close menu</span>
+                  <FiX className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="mt-6 px-4 pb-6">
+                <nav className="space-y-2">
+                  {navigation.map((item) => (
                     <a
-                      href="#contact"
-                      onClick={(e) => handleClick(e, '#contact')}
-                      className="btn-primary mt-4"
+                      key={item.name}
+                      href={item.href}
+                      className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 rounded-md"
+                      onClick={(e) => {
+                        scrollToSection(e, item.href)
+                        setOpen(false)
+                      }}
                     >
-                      Get a Quote
+                      {item.name}
                     </a>
-                  </div>
+                  ))}
+                </nav>
+
+                <div className="mt-8">
+                  <button
+                    type="button"
+                    className="w-full rounded-md bg-primary-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary-500"
+                    onClick={() => {
+                      onGetQuote()
+                      setOpen(false)
+                    }}
+                  >
+                    Get a Quote
+                  </button>
                 </div>
               </div>
-            </Dialog.Panel>
+            </div>
           </Transition.Child>
         </div>
       </Dialog>

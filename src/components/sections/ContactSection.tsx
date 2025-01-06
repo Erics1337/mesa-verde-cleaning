@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FiMapPin, FiPhone, FiMail, FiClock } from 'react-icons/fi'
+import Image from 'next/image'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
@@ -455,11 +456,19 @@ export default function ContactSection() {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
+                <Image
+                  src="/images/mvc-logo-01.svg"
+                  alt="Mesa Verde Cleaning Logo"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto mb-8"
+                  priority
+                />
                 <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-8">
                   Get in Touch
                 </h2>
                 <p className="text-lg text-gray-600 mb-12">
-                  Ready to experience the best cleaning service in Mesa Verde? 
+                  Ready to experience the best cleaning service in Montezuma County? 
                   Contact us today for a free quote or to schedule your first cleaning.
                 </p>
 

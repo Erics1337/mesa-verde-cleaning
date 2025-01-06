@@ -15,16 +15,16 @@ const features = [
     title: 'Professional Experience',
     description: 'Over 3 years of professional cleaning experience with a strong reputation for reliability and quality.',
   },
-  {
-    icon: <FiShield className="w-5 h-5 text-indigo-500" />,
-    title: 'Trusted Coverage Backed by an LLC',
-    description: "We have LLC status for asset protection and your peace of mind.",
-  },
   // {
   //   icon: <FiShield className="w-5 h-5 text-indigo-500" />,
-  //   title: 'Licensed & Insured',
-  //   description: "Full insurance coverage and LLC status for your complete peace of mind.",
+  //   title: 'Trusted Coverage Backed by an LLC',
+  //   description: "We have LLC status for asset protection and your peace of mind.",
   // },
+  {
+    icon: <FiShield className="w-5 h-5 text-indigo-500" />,
+    title: 'Licensed & Insured',
+    description: "Full insurance coverage and LLC status for your complete peace of mind.",
+  },
 ]
 
 export default function AboutSection() {

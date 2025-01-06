@@ -8,12 +8,12 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 const testimonials = [
   {
     id: 1,
-    name: 'Sarah Johnson',
-    role: 'Homeowner',
-    image: '/images/testimonials/sarah.jpg.svg',
-    content: "Mesa Verde Cleaning has been cleaning my home for over a year now, and I couldn't be happier with their service. The team is professional, thorough, and always goes above and beyond.",
+    name: 'Mark and Jody ~ Harmony Barn',
+    role: 'Homeowners',
+    image: '/images/testimonials/markjody.png',
+    content: "Keen attention to detail, thoughtful care of every surface, and that special touch you only get from those who clearly enjoy what they do and who set high standards for their own work. Highly recommended!",
     rating: 5,
-    service: 'Regular Home Cleaning',
+    service: 'AirBnB Cleaning',
   },
   {
     id: 2,

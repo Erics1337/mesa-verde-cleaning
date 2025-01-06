@@ -1,128 +1,174 @@
 'use client'
 
-import { FiHome, FiBox, FiTool, FiCalendar, FiStar, FiCheckCircle } from 'react-icons/fi'
+import { useState } from 'react'
+import { FiHome, FiCalendar, FiStar, FiBox, FiArrowRight } from 'react-icons/fi'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import Image from 'next/image'
 
 const services = [
   {
-    icon: <FiCalendar className="w-6 h-6" />,
-    title: 'Regular Cleaning Services',
-    description: 'Regular maintenance cleaning to keep your home pristine',
+    icon: <FiCalendar className="w-8 h-8" />,
+    title: 'Regular Cleaning',
+    description: 'Scheduled maintenance cleaning to keep your home pristine',
     features: [
-      'Dusting and vacuuming',
-      'Bathroom cleaning',
-      'Kitchen cleaning',
-      'Floor care',
+      'Dusting and vacuuming all rooms',
+      'Bathroom cleaning and sanitization',
+      'Kitchen cleaning and countertop care',
+      'Floor care and mopping',
       'Regular maintenance of living spaces',
     ],
     price: 'Contact for pricing',
-    popular: true,
+    color: 'from-blue-500 to-blue-600',
+    lightColor: 'bg-blue-50',
   },
   {
-    icon: <FiStar className="w-6 h-6" />,
-    title: 'Deep Cleaning Services',
+    icon: <FiStar className="w-8 h-8" />,
+    title: 'Deep Cleaning',
     description: 'Comprehensive cleaning for those times when your home needs extra attention',
     features: [
       'All regular cleaning tasks',
-      'Baseboards and trim',
+      'Deep cleaning of baseboards and trim',
       'Inside cabinets and drawers',
       'Window sills and tracks',
       'Light fixtures and door frames',
     ],
     price: 'Based on home size',
-    popular: false,
+    color: 'from-purple-500 to-purple-600',
+    lightColor: 'bg-purple-50',
   },
   {
-    icon: <FiBox className="w-6 h-6" />,
-    title: 'Move In/Out Cleaning',
+    icon: <FiHome className="w-8 h-8" />,
+    title: 'Airbnb & Vacation Rentals',
+    description: 'Specialized cleaning services for your short-term rental properties',
+    features: [
+      'Quick turnaround between guests',
+      'Thorough sanitization of all spaces',
+      'Fresh linens and towel service',
+      'Restocking of amenities',
+      'Detailed cleaning checklist',
+    ],
+    price: 'Contact for pricing',
+    color: 'from-green-500 to-green-600',
+    lightColor: 'bg-green-50',
+  },
+  {
+    icon: <FiBox className="w-8 h-8" />,
+    title: 'Move In/Out',
     description: 'Complete property preparation for moving transitions',
     features: [
-      'Complete property preparation',
-      'Detail cleaning of all surfaces',
-      'Special attention to high-traffic areas',
+      'Deep cleaning of all surfaces',
+      'Inside all cabinets and appliances',
+      'Window and track cleaning',
+      'Baseboard and trim detailed cleaning',
       'Final inspection and touch-ups',
-      'Move-ready guarantee',
     ],
     price: 'Based on square footage',
-    popular: false,
+    color: 'from-orange-500 to-orange-600',
+    lightColor: 'bg-orange-50',
   },
 ]
 
 export default function ServicesSection() {
+  const [activeService, setActiveService] = useState(0)
   const { elementRef, isVisible } = useIntersectionObserver({
     threshold: 0.2,
     rootMargin: '-50px',
   })
 
+  const currentService = services[activeService]
+
   return (
     <section
       id="services"
       ref={elementRef}
-      className="py-12 sm:py-16 lg:py-20 bg-white"
+      className="py-20 bg-gray-50 min-h-screen flex items-center"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
             Our Cleaning Services
           </h2>
-          <p className="text-lg text-gray-600 mb-12">
-            Professional cleaning services tailored to your Mancos home
+          <p className="text-lg text-gray-600">
+            Professional cleaning services tailored to your needs. Select a service to learn more.
           </p>
         </div>
 
         <div className={`transition-all duration-1000 transform ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={service.title}
-                className={`relative bg-white rounded-2xl shadow-lg p-8 animate-fade-in ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                {service.popular && (
-                  <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-primary-600 text-white text-sm font-medium rounded-full">
-                    Most Popular
-                  </div>
-                )}
-                
-                <div className="flex items-center mb-4">
-                  <div className="p-2 bg-primary-100 rounded-lg">
-                    {service.icon}
-                  </div>
-                  <h3 className="ml-4 text-xl font-semibold text-gray-900">
-                    {service.title}
-                  </h3>
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Services Side */}
+            <div className="max-w-lg mx-auto lg:mx-0">
+              {/* Service Navigation */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8">
+                {services.map((service, index) => (
+                  <button
+                    key={service.title}
+                    onClick={() => setActiveService(index)}
+                    className={`flex items-center px-4 py-2 rounded-full transition-all duration-300 text-sm ${
+                      activeService === index
+                        ? `bg-gradient-to-r ${service.color} text-white shadow-lg scale-105`
+                        : `${service.lightColor} text-gray-700 hover:scale-105`
+                    }`}
+                  >
+                    <span className="mr-2">{service.icon}</span>
+                    <span className="font-medium">{service.title}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Service Content */}
+              <div className="relative overflow-hidden rounded-xl bg-white shadow-xl">
+                <div className="absolute inset-0">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${currentService.color} opacity-10`} />
                 </div>
                 
-                <p className="text-gray-600 mb-6">
-                  {service.description}
-                </p>
-                
-                <ul className="space-y-3 mb-8">
-                  {service.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <FiCheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                      <span className="ml-3 text-gray-600">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="mt-auto">
-                  <div className="text-2xl font-bold text-gray-900 mb-4">
-                    {service.price}
+                <div className="relative p-6">
+                  <div>
+                    <div className={`inline-flex p-2 rounded-lg ${currentService.lightColor} mb-4`}>
+                      {currentService.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{currentService.title}</h3>
+                    <p className="text-gray-600 mb-4">{currentService.description}</p>
                   </div>
-                  <a
-                    href="#contact"
-                    className="block w-full py-3 px-4 text-center text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition duration-150"
-                  >
-                    Get a Free Quote
-                  </a>
+
+                  <ul className="space-y-3 mb-6">
+                    {currentService.features.map((feature, index) => (
+                      <li key={index} className="flex items-center text-gray-700">
+                        <FiArrowRight className="w-4 h-4 mr-2 text-primary-500" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-semibold text-gray-900">{currentService.price}</span>
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Logo Side */}
+            <div className="hidden lg:block relative">
+              {/* Background decorative elements */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-[120%] h-[120%] rotate-12 bg-gradient-to-r from-primary-50 to-primary-100 rounded-full opacity-50 blur-3xl" />
+              </div>
+              
+              {/* Logo container */}
+              <div className="relative aspect-square">
+                <div className="absolute inset-0 flex items-center justify-center animate-float">
+                  <Image
+                    src="/images/mvc-logo-01.svg"
+                    alt="Mesa Verde Cleaning Logo"
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-contain drop-shadow-2xl"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

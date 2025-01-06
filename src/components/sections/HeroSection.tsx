@@ -4,8 +4,8 @@ import ScrollIndicator from './ScrollIndicator'
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+      {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0">
         <Image
           src="/images/mvc1.png"
@@ -15,11 +15,11 @@ export default function HeroSection() {
           className="object-cover h-full w-full"
           quality={90}
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
       </div>
 
       {/* Content */}
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+      <div className="relative w-full">
         <HeroContent />
       </div>
 
