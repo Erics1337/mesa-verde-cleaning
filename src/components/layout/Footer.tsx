@@ -92,7 +92,7 @@ export default function Footer() {
               )}
             </div>
             <div className="space-y-2 text-sm">
-              {/* <p>Licensed & Insured</p> */}
+              <p>Licensed & Insured</p>
               <p>Limited Liability Company</p>
               <p>Eco-Friendly Products</p>
               <p>100% Satisfaction Guaranteed</p>
