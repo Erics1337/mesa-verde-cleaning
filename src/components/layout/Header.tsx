@@ -32,11 +32,11 @@ const services = [
 ]
 
 const navigation = [
-  { name: 'Home', href: '#' },
+  // { name: 'Home', href: '#' },
   { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
-  { name: 'Airbnb', href: '#airbnb' },
-  { name: 'Contact', href: '#contact' },
+  // { name: 'Airbnb', href: '#airbnb' },
+  // { name: 'Contact', href: '#contact' },
   { name: 'Testimonials', href: '#testimonials' },
   { name: 'FAQ', href: '#faq' },
 ]
