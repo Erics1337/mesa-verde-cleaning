@@ -8,7 +8,7 @@ export default function HeroSection() {
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0">
         <Image
-          src="/images/mvc1.png"
+          src="/images/homeowner1.jpg"
           alt="Professional cleaning service in action"
           fill
           priority
