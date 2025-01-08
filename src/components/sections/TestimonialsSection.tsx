@@ -19,7 +19,7 @@ const testimonials = [
     id: 2,
     name: 'Michael Chen',
     role: 'Business Owner',
-    image: '/images/testimonials/michael.jpg.svg',
+    image: '/images/testimonials/people.png',
     content: 'As a business owner, having a clean office is crucial. Mesa Verde Cleaning consistently delivers exceptional results. Their attention to detail and reliability is outstanding.',
     rating: 5,
     service: 'Office Cleaning',
