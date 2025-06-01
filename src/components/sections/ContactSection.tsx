@@ -468,7 +468,7 @@ export default function ContactSection() {
                   Get in Touch
                 </h2>
                 <p className="text-lg text-gray-600 mb-12">
-                  Ready to experience the best cleaning service in Montezuma County? 
+                  Ready to experience the best cleaning service in Santa Fe? 
                   Contact us today for a free quote or to schedule your first cleaning.
                 </p>
 

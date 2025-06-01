@@ -42,7 +42,7 @@ const faqs = [
   // },
   {
     question: 'What areas do you serve?',
-    answer: 'We primarily serve Mancos and surrounding areas including Cortez, Dolores, and the Mesa Verde National Park area.',
+    answer: 'We primarily serve Santa Fe, New Mexico and surrounding areas.',
     category: 'Business',
   },
 ]

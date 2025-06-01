@@ -68,7 +68,7 @@ export default function PrivacyPolicy() {
               </p>
               <div className="mt-3">
                 <p>Mesa Verde Cleaning LLC</p>
-                <p>Mancos, Colorado</p>
+                <p>Jaguar Road, Santa Fe</p>
                 <p>Email: contact@mesaverdecleaning.com</p>
                 <p>Phone: (970)903-4279</p>
               </div>

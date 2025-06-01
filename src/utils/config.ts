@@ -29,7 +29,7 @@ export const siteConfig: SiteConfig = {
   contact: {
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contact@mesaverdecleaning.com',
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '(123) 456-7890',
-    address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || '123 Main Street, Mesa Verde, CO 81330',
+    address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || 'Jaguar Road, Santa Fe',
   },
   social: {
     facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL || 'https://facebook.com/mesaverdecleaning',

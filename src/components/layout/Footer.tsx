@@ -3,9 +3,7 @@ import { FiMapPin, FiPhone, FiMail, FiFacebook, FiInstagram } from 'react-icons/
 import { siteConfig } from '@/utils/config'
 
 const serviceAreas = [
-  'Mancos',
-  'Cortez',
-  'Dolores',
+  'Santa Fe, New Mexico',
   'Surrounding Areas',
   // Add more service areas
 ]

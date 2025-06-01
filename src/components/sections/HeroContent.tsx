@@ -10,7 +10,7 @@ export default function HeroContent() {
             Professional Home Cleaning Services
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-100 drop-shadow">
-            Local, trusted, and eco-conscious cleaning services in Mancos, Colorado. Bringing peace of mind to homes since 2021.
+            Local, trusted, and eco-conscious cleaning services in Santa Fe, New Mexico. Bringing peace of mind to homes since 2021.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

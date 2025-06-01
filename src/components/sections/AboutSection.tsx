@@ -8,7 +8,7 @@ const features = [
   {
     icon: <FiHome className="w-5 h-5 text-primary-500" />,
     title: 'Local Woman-Owned Business',
-    description: 'Founded and operated by a local Mancos mother, we understand the unique needs of our community.',
+    description: 'Founded and operated by a local Santa Fe mother, we understand the unique needs of our community.',
   },
   {
     icon: <FiClock className="w-5 h-5 text-blue-500" />,
@@ -48,7 +48,7 @@ export default function AboutSection() {
             <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
               <Image
                 src="/images/kiraclean.jpeg"
-                alt="Professional home cleaning service in Mancos"
+                alt="Professional home cleaning service in Santa Fe"
                 width={800}
                 height={600}
                 className="object-cover"
@@ -66,10 +66,10 @@ export default function AboutSection() {
           {/* Content Section */}
           <div className="mt-10 lg:mt-0 animate-fade-in">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Your Trusted Local Cleaning Service in Mancos
+              Your Trusted Local Cleaning Service in Santa Fe
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Mesa Verde Cleaning brings professional, reliable cleaning services to Mancos and surrounding areas. 
+              Mesa Verde Cleaning brings professional, reliable cleaning services to Santa Fe, New Mexico and surrounding areas. 
               As a local, woman-owned business, we understand the unique needs of our community.
             </p>
             <p className="mt-4 text-lg text-gray-600">
