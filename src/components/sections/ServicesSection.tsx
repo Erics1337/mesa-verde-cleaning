@@ -159,8 +159,8 @@ export default function ServicesSection() {
               <div className="relative aspect-square">
                 <div className="absolute inset-0 flex items-center justify-center animate-float">
                   <Image
-                    src="/images/mvc-logo-01.svg"
-                    alt="Mesa Verde Cleaning Logo"
+                    src="/images/sage.png"
+                    alt="Sage Cleansing"
                     width={500}
                     height={500}
                     className="w-full h-full object-contain drop-shadow-2xl"
